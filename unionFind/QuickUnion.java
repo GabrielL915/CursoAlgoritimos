@@ -2,6 +2,7 @@ package unionFind;
 
 public class QuickUnion {
     private int[] id;
+    private int[] size;
 
     public QuickUnion(int N) {
         id = new int[N];
@@ -23,6 +24,16 @@ public class QuickUnion {
     public void Union(int p, int q) {
         int i = root(p);
         int j = root(q);
-        id[i] = j;
+
+        if (i == j)
+            return;
+
+        if (size[i] < size[j]) {
+            id[i] = j;
+            size[j] += size[i];
+        } else {
+            id[j] = i;
+            size[i] += size[j];
+        }
     }
 }
